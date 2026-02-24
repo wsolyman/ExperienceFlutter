@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "463499343342",
+    "project_id": "experince-8ef52",
+    "storage_bucket": "experince-8ef52.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463499343342:android:ca4eaf9f687d84949ecaff",
+        "android_client_info": {
+          "package_name": "com.Alkafaa.experience"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7XclW50T_ad52mRnEfmRVRzxQ2EFvPvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463499343342:android:11b976e4b83dff2e9ecaff",
+        "android_client_info": {
+          "package_name": "com.example.experience"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7XclW50T_ad52mRnEfmRVRzxQ2EFvPvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
