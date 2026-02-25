@@ -392,7 +392,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   shadowColor: AppColors.primaryBlue
                               ),
                               child: SmartArabicText(
-                                text: 'سجل الآن؟',
+                                text: 'سجل الآن ؟',
                                 baseSize:14,
                                 color:  Colors.white,
                               ),
