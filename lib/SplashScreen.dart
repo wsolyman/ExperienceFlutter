@@ -47,6 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
         String profileImageUrl='no image';
         decodedData['profileUrl'] !=null ?  profileImageUrl = serverUrl+decodedData['profileUrl'].toString() : profileImageUrl='profileImageUrl';
         String fullname = decodedData['userName'].toString();
+        double totalEvaluations= decodedData['totalEvaluations'];
+        userpref.setDouble('totalEvaluations', totalEvaluations);
         String email = decodedData['email'].toString();
         String phone = decodedData['phone'].toString();
         String userTypeId=decodedData['userTypeId'].toString();

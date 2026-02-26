@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
   String? userName;
   String? userEmail;
   int? usertypeid;
+  double? totalEvaluations;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   Future<void> _checkLoginStatus() async {
@@ -100,6 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       userName = prefs.getString('fullname') ?? '';
       userEmail = prefs.getString('email') ?? '';
       usertypeid=int.parse(prefs.getString('userTypeId') ?? '0')  ?? 0;
+      totalEvaluations=prefs.getDouble('totalEvaluations') ??0;
       String imageurl=prefs.getString('profileImageUrl').toString();
        imageurl== 'no image' ? profileImageUrl= null : profileImageUrl= prefs.getString('profileImageUrl').toString();
 
@@ -145,7 +147,22 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
       ),
     );
   }
-
+  Widget _buildRatingStars(double rating) {
+    return Center(
+      child:
+     Row(
+         mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(5, (index) {
+        if (index < rating.floor()) {
+          return const Icon(Icons.star, color: Colors.amber, size: 16);
+        } else if (index < rating && rating % 1 != 0) {
+          return const Icon(Icons.star_half, color: Colors.amber, size: 16);
+        } else {
+          return const Icon(Icons.star_border, color: Colors.amber, size: 16);
+        }
+      })),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -294,17 +311,8 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                   ),
                   const SizedBox(height: 8),
                   /// ---------- RATING ----------
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: List.generate(
-                      5,
-                          (_) => const Icon(
-                        Icons.star,
-                        size: 18,
-                        color: Color(0xFFF59E0B),
-                      ),
-                    ),
-                  ),
+                  usertypeid==3 ?
+                  _buildRatingStars(totalEvaluations ?? 0) : const SizedBox(height:0),
                 ],
               ),
             ),

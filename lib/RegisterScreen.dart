@@ -55,6 +55,8 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
         var decodedData = json.decode(response.body);
         SharedPreferences userpref = await SharedPreferences.getInstance();
         String fullname = decodedData['userName'].toString();
+        double totalEvaluations= decodedData['totalEvaluations'];
+        userpref.setDouble('totalEvaluations', totalEvaluations);
         String email = decodedData['email'].toString();
         String phone = decodedData['phone'].toString();
         String userTypeId=decodedData['userTypeId'].toString();
@@ -207,6 +209,8 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
                     hint: 'example@email.com',
                     icon: Icons.email_outlined,
                     keyboardType: TextInputType.emailAddress,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.left,
                     validatorMsg: 'يرجى إدخال بريد إلكتروني صالح',
                     emailValidation: true),
                 SizedBox(height: 20),
@@ -216,6 +220,8 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
                     hint: '05XXXXXXXX',
                     icon: Icons.phone_outlined,
                     keyboardType: TextInputType.phone,
+                    textDirection: TextDirection.ltr,
+                    textAlign: TextAlign.left,
                     validatorMsg: 'يرجى إدخال رقم جوال صالح',
                     phoneValidation: true),
                 SizedBox(height: 20),
@@ -281,18 +287,50 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
     bool requiredField = true,
     String? validatorMsg,
     TextInputType keyboardType = TextInputType.text,
+    TextDirection textDirection=TextDirection.rtl,
+    TextAlign textAlign=TextAlign.right,
     bool emailValidation = false,
     bool phoneValidation = false,
   }) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      textDirection: textDirection, // إضافة اتجاه النص من اليمين لليسار
+      textAlign: textAlign, // محاذاة النص لليمين
+      style: const TextStyle(
+        fontSize: 14, // تكبير حجم النص المدخل
+        color: Colors.black,
+      ),
+
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        hintStyle: SmartArabicTextStyle.create(color: AppColors.primaryBlue.withOpacity(0.6) ,baseSize: 12, context: context),
-        labelStyle: SmartArabicTextStyle.create(color: AppColors.primaryBlue.withOpacity(0.6) ,baseSize: 12, context: context),
-        prefixIcon: Icon(icon, color: primaryBlue),
+
+        // تكبير حجم الـ hint والـ label
+        hintStyle: SmartArabicTextStyle.create(
+          color: AppColors.primaryBlue.withOpacity(0.6),
+          baseSize: 14, // زيادة حجم الخط
+          context: context,
+        ),
+
+        labelStyle: SmartArabicTextStyle.create(
+          color: AppColors.primaryBlue.withOpacity(0.6),
+          baseSize: 12, // زيادة حجم الخط
+          context: context,
+        ),
+
+        // تكبير حجم النص في حالة الخطأ
+        errorStyle: const TextStyle(
+          fontSize: 12,
+          height: 1.2,
+          color: Colors.red,
+        ),
+
+        // السماح بثلاثة أسطر للخطأ
+        errorMaxLines: 3,
+
+        prefixIcon: Icon(icon, color: primaryBlue, size: 24), // تكبير حجم الأيقونة
+
         filled: true,
         fillColor: Colors.white.withOpacity(0.08),
 
@@ -300,25 +338,30 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(color: primaryBlue),
         ),
+
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(color: primaryBlue.withOpacity(0.6)),
         ),
+
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: primaryBlue, width: 2),
         ),
+
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Colors.red),
         ),
+
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Colors.red, width: 2),
         ),
-        contentPadding:
-        const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
       ),
+
       validator: (value) {
         if (!requiredField) return null;
         if (value == null || value.trim().isEmpty) {
@@ -328,8 +371,7 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
             !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
           return validatorMsg ?? 'يرجى إدخال بريد إلكتروني صالح';
         }
-        if (phoneValidation &&
-            !RegExp(r'^05\d{8}$').hasMatch(value)) {
+        if (phoneValidation && !RegExp(r'^05\d{8}$').hasMatch(value)) {
           return validatorMsg ??
               'يرجى إدخال رقم جوال صالح يبدأ بـ 05 ويتكون من 10 أرقام';
         }
@@ -377,8 +419,8 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
       decoration: InputDecoration(
         labelText: 'كلمة المرور',
         hintText: 'أدخل كلمة المرور',
-        hintStyle: SmartArabicTextStyle.create(color: AppColors.primaryBlue.withOpacity(0.6) ,baseSize: 12, context: context),
-        labelStyle: SmartArabicTextStyle.create(color: AppColors.primaryBlue.withOpacity(0.6) ,baseSize: 12, context: context),
+        hintStyle: SmartArabicTextStyle.create(color: AppColors.primaryBlue.withOpacity(0.6), baseSize: 12, context: context),
+        labelStyle: SmartArabicTextStyle.create(color: AppColors.primaryBlue.withOpacity(0.6), baseSize: 12, context: context),
         prefixIcon: const Icon(Icons.lock_outline, color: primaryBlue),
         suffixIcon: IconButton(
           icon: Icon(
@@ -409,8 +451,13 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
           borderRadius: BorderRadius.circular(30),
           borderSide: const BorderSide(color: Colors.red, width: 2),
         ),
-        contentPadding:
-        const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        // إضافة constraints لمساحة الخطأ
+        errorMaxLines: 3,
+        errorStyle: const TextStyle(
+          fontSize: 12,
+          height: 1.2, // تباعد الأسطر
+        ),
       ),
       validator: (value) {
         if (value == null || value.trim().isEmpty) {
@@ -422,8 +469,7 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
         );
 
         if (!regex.hasMatch(value)) {
-          return
-            'يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل، وأحرف كبيرة وصغيرة، ورقم، وحرف خاص';
+          return 'يجب أن تحتوي على ٦ أحرف على الأقل، حرف كبير وصغير، رقم، رمز خاص';
         }
         return null;
       },

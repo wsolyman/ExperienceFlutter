@@ -6,6 +6,7 @@ import 'package:experience/service/SmartArabicStyle.dart';
 import 'package:experience/service/SmartArabicText.dart';
 import 'package:experience/service/apiservice.dart';
 import 'package:experience/user/NotificationScreen.dart';
+import 'package:experience/utils/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
@@ -630,17 +631,13 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
                               Icons.add_shopping_cart,
                               color: AppColors.primaryBlue,
                             ),
-                            label: const Text(
-                              'اضف الي السلة',
-                              style: TextStyle(
-                                color: const Color(0xFF0B7780),
-                                fontSize: 10,
-                                fontFamily: 'Noto Kufi Arabic',
-                                fontWeight: FontWeight.w600,
-                                height: 2.30,
-                                letterSpacing: -0.50,
-                              ),
+                            label: SmartArabicText(
+                              text: 'اضف الي السلة',
+                              baseSize:10,
+                              color: Color(0xFF0B7780),
+                              fontWeight: FontWeight.w600,
                             ),
+
                             onPressed: () {
                               addToCart(experience.exprienceId, 0, false);
                               Navigator.of(context).pop();
@@ -1046,23 +1043,10 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
             ),
             Expanded(
               child: isAddtocardLoading
-                  ? Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Loading Image - Replace with your image
-                    _buildLoadingImage(),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'جاري تحميل بيانات التقدم...',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
-                ),
-              )
+                  ?  const FullScreenLoading(
+              message: 'جاري تحميل البيانات...',
+              withScaffold: true,
+            )
                   : ListView.builder(
                       controller: _scrollController,
                       itemCount: experiences.length + (hasNextPage ? 1 : 0),

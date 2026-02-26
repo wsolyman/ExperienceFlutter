@@ -223,10 +223,10 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
               children: [
                 // Header Section - Responsive height
                 Container(
-                  height: screenHeight * 0.4, // Reduced from 0.45 for better balance
+                  height: screenHeight * 0.45, // Reduced from 0.45 for better balance
                   padding: EdgeInsets.symmetric(
                     horizontal: horizontalPadding,
-                    vertical: screenHeight * 0.03,
+                    vertical: screenHeight * 0.05,
                   ),
                   decoration: const BoxDecoration(
                     image: DecorationImage(

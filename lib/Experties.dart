@@ -209,7 +209,7 @@ bool isAddtocardLoading=false;
                               _buildRatingStars(exp.totalEvaluations?? 0),
                               const SizedBox(width: 6),
                                 SmartArabicText(
-                                text:  '('+ exp.itemsPurchased.toString() + 'مبيعة)',
+                                text:  '(عدد المبيعات ' + exp.itemsPurchased.toString() +')',
                                 baseSize:10,
                                  color: Color(0xff9ca3af),
                               ),
@@ -289,7 +289,7 @@ bool isAddtocardLoading=false;
   }
   Widget _buildRatingStars(double rating) {
     return Row(
-      children: List.generate(5, (index) {
+      children: List.generate(4, (index) {
         if (index < rating.floor()) {
           return const Icon(Icons.star, color: Colors.amber, size: 16);
         } else if (index < rating && rating % 1 != 0) {
