@@ -412,6 +412,8 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
     );
   }
   bool _obscurePassword = true;
+  bool _confirmobscurePassword = true;
+
   Widget _buildPasswordField() {
     return TextFormField(
       controller: _passwordController,
@@ -478,7 +480,7 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
   Widget _buildConfirmPasswordField() {
     return TextFormField(
       controller: _confirmPasswordController,
-      obscureText: true,
+      obscureText: _confirmobscurePassword,
       decoration: InputDecoration(
         labelText: 'تأكيد كلمة المرور',
         hintText: 'أعد إدخال كلمة المرور',
@@ -487,11 +489,11 @@ class _RegisterscreenState extends State<Registerscreen> with SingleTickerProvid
         prefixIcon: const Icon(Icons.lock_outline, color: primaryBlue),
         suffixIcon: IconButton(
           icon: Icon(
-            _obscurePassword ? Icons.visibility_off : Icons.visibility,
+            _confirmobscurePassword ? Icons.visibility_off : Icons.visibility,
             color: primaryBlue,
           ),
           onPressed: () {
-            setState(() => _obscurePassword = !_obscurePassword);
+            setState(() => _confirmobscurePassword = !_confirmobscurePassword);
           },
         ),
         border: OutlineInputBorder(

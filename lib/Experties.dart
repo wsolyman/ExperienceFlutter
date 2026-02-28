@@ -241,7 +241,7 @@ bool isAddtocardLoading=false;
                       userpref.setInt('expertid', exp.userId);
                     });
                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => HomeScreen(selectedIndex: 1,userid:exp.userId,)),
+                      MaterialPageRoute(builder: (_) => HomeScreen(selectedIndex: 1,userid:exp.userId)),
                     );
                   },
                   icon: const Icon(
@@ -322,7 +322,7 @@ bool isAddtocardLoading=false;
                 icon: const Icon(Icons.shopping_cart),
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => HomeScreen(selectedIndex: 1,userid: 0,)),
+                    MaterialPageRoute(builder: (_) => HomeScreen(selectedIndex: 1,userid: 0,searchtext: null,)),
                   );
                 },
               ),

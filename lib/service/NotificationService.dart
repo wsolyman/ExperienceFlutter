@@ -2,13 +2,11 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'DatabaseHelper.dart';
-
 class NotificationService {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final DatabaseHelper _dbHelper = DatabaseHelper();
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
   FlutterLocalNotificationsPlugin();
-
   Future<void> initialize() async {
     // Initialize local notifications
     const AndroidInitializationSettings initializationSettingsAndroid =
@@ -61,6 +59,7 @@ class NotificationService {
 
   Future<void> _getToken() async {
     String? token = await _firebaseMessaging.getToken();
+    String? token1 = await _firebaseMessaging.getAPNSToken();
     print('FCM Token: $token');
     SharedPreferences userpref = await SharedPreferences.getInstance();
     userpref.setString("fcmToken", token.toString());

@@ -23,8 +23,9 @@ class Category {
       Category(json['categoryId'], json['categoryName']);
 }
 class HomeContentScreen extends StatefulWidget {
-  const HomeContentScreen({Key? key, required this.userid}) : super(key: key);
+  const HomeContentScreen( {Key? key, required this.userid, this.searchtext}) : super(key: key);
   final userid;
+  final searchtext;
   @override
   _HomeContentScreenState createState() => _HomeContentScreenState();
 }
@@ -48,17 +49,33 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
   Future<void> _checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('logined') ?? false;
+    if(widget.searchtext !=null) {
+      setState(() {
+        searchQuery = widget.searchtext;
+        _searchController.text = widget.searchtext;
+      });
+    }
+    else
+      {
+        setState(() {
+          searchQuery = null;
+          _searchController.clear();
+        });
+      }
     if (isLoggedIn) {
       final unreadCount = await _dbHelper.getUnreadCount();
       setState(() {
         itemcount = prefs.getInt('cartItemsCount') ?? 0;
-        expertid = prefs.getInt('expertid') ?? 0;
+        expertid=widget.userid;
         _unreadCount=unreadCount;
-        prefs.setInt('expertid', 0);
+        prefs.setInt('expertid',0);
         fetchCategories();
         fetchExperiences();
       });
     } else {
+      setState(() {
+        expertid=widget.userid;
+      });
       fetchCategories();
       fetchExperiences();
     }
@@ -241,6 +258,7 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
   }
   void onCategorySelected(int categoryId) {
     setState(() {
+      expertid=0;
       searchQuery = null;
       _searchController.clear();
       selectedCategoryId = categoryId == 0 ? null : categoryId;
@@ -755,7 +773,6 @@ class _HomeContentScreenState extends State<HomeContentScreen> {
       ],
     );
   }
-
   Widget _buildTechnicalFields(Experience exp) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

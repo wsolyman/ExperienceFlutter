@@ -782,7 +782,7 @@ class _CartScreenState extends State<CartScreen> {
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(builder: (context) => HomeScreen(selectedIndex: 1,userid: 0,)),
+                        MaterialPageRoute(builder: (context) => HomeScreen(selectedIndex: 1,userid: 0,searchtext: null)),
                             (route) => false,
                       );
                     },

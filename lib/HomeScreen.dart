@@ -10,15 +10,17 @@ import 'HomeContentScreen.dart';
 import 'Myexperience.dart';
 import 'ProfileScreen.dart';
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key ,required this.selectedIndex,required this.userid}) : super(key: key);
+  const HomeScreen({Key? key ,required this.selectedIndex,required this.userid,this.searchtext}) : super(key: key);
   final selectedIndex;
   final userid;
+  final searchtext;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   DateTime? currentBackPressTime;
+  String pagesearchtext='';
   Future<bool> _onWillPop() async {
     final now = DateTime.now();
 
@@ -69,13 +71,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
   int selectedPos = 0;
+  int userid=0;
   Widget bodyContainer() {
     switch (selectedPos) {
       case 0:
         return  FirstHomeScreen();
       case 1:
         return HomeContentScreen(
-          userid: widget.userid == 0 ? 0 : widget.userid,
+          userid: userid,
+          searchtext:  pagesearchtext=='' ? null : pagesearchtext
         );
       case 2:
         return const Experties();
@@ -94,6 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _checkLoginStatus() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
+      userid=widget.userid;
+      pagesearchtext=widget.searchtext==null ?'' :widget.searchtext ;
       final isLoggedIn = prefs.getBool('logined') ?? false;
       final experiencefield=prefs.getInt('fieldId');
       if (isLoggedIn) {
@@ -106,19 +112,20 @@ class _HomeScreenState extends State<HomeScreen> {
             showexp=false;
         }
       }
+      if(widget.selectedIndex==4 && !showexp)
+      {
+        selectedPos=3;
+      }
+      else  if(widget.selectedIndex==5 && !showexp)
+      {
+        selectedPos=4;
+      }
+      else
+      {
+        selectedPos=widget.selectedIndex;
+      }
     });
-    if(widget.selectedIndex==4 && !showexp)
-    {
-      selectedPos=3;
-    }
-   else  if(widget.selectedIndex==5 && !showexp)
-    {
-      selectedPos=4;
-    }
-    else
-    {
-      selectedPos=widget.selectedIndex;
-    }
+
   }
   void initState() {
     super.initState();
@@ -151,7 +158,11 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: AppColors.primaryBlue,
         unselectedItemColor: Colors.grey,
         onTap: (index) {
-          setState(() => selectedPos = index);
+         setState(() {
+           selectedPos=index;
+           userid=0;
+           pagesearchtext='';
+         });
         },
         items: const [
           BottomNavigationBarItem(
@@ -188,9 +199,13 @@ class _HomeScreenState extends State<HomeScreen> {
     type: BottomNavigationBarType.fixed,
     selectedItemColor: AppColors.primaryBlue,
     unselectedItemColor: Colors.grey,
-    onTap: (index) {
-    setState(() => selectedPos = index);
-    },
+      onTap: (index) {
+        setState(() {
+          selectedPos=index;
+          userid=0;
+          pagesearchtext='';
+        });
+      },
     items: const [
     BottomNavigationBarItem(
     icon: Icon(Icons.home),

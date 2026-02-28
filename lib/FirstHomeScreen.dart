@@ -393,7 +393,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (_) =>
-                                      HomeScreen(selectedIndex: 1, userid: 0),
+                                      HomeScreen(selectedIndex: 1, userid: 0,searchtext: null),
                                 ),
                               );
                             },
@@ -457,13 +457,11 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                 ),
 
                 SizedBox(height: verticalSpacingMedium),
-
                 // CTA Card
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
                   child: _buildCtaCard(screenWidth, screenHeight),
                 ),
-
                 SizedBox(height: verticalSpacingLarge), // Bottom padding
               ],
             ),
@@ -690,13 +688,25 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
             Positioned(
               left: screenWidth * 0.03,
               top: screenHeight * 0.08,
-              child: CircleAvatar(
-                radius: screenWidth * 0.04,
-                backgroundColor: Colors.grey.shade200,
-                child: Icon(
-                  Icons.arrow_back_ios_new_outlined,
-                  color: Color(0xFF0B7780),
-                  size: screenWidth * 0.04,
+              child: GestureDetector(
+                onTap: () {
+                  // Add your click functionality here
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) =>
+                          HomeScreen(selectedIndex: 1, userid: 0,searchtext: title),
+                    ),
+                  );
+                  // Example: Navigator.pop(context);
+                },
+                child: CircleAvatar(
+                  radius: screenWidth * 0.04,
+                  backgroundColor: Colors.grey.shade200,
+                  child: Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    color: Color(0xFF0B7780),
+                    size: screenWidth * 0.04,
+                  ),
                 ),
               ),
             ),
