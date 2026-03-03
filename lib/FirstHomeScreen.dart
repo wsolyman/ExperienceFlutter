@@ -4,6 +4,7 @@ import 'package:experience/constant.dart';
 import 'package:experience/service/NotificationService.dart';
 import 'package:experience/service/SmartArabicStyle.dart';
 import 'package:experience/service/apiservice.dart';
+import 'package:experience/utils/loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:http/http.dart' as http;
@@ -31,10 +32,11 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
   var ststurl = serverUrl + 'Lookups/HomePageStatistics';
   late final ApiService apiService = ApiService(baseUrl: url);
   String fcmToken = '';
-
+   bool getdata=false;
   Future<void> getstat() async {
-    setState(() {});
-
+    setState(() {
+      getdata=true;
+    });
     try {
       final response = await http.get(
         Uri.parse(ststurl),
@@ -50,20 +52,32 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
         });
         fetchExperiences();
       } else if (response.statusCode == 400) {
+        setState(() {
+          getdata=false;
+        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('خطأ في الاتصال بالخادم')),
         );
       } else {
+        setState(() {
+          getdata=false;
+        });
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('خطأ في الاتصال بالخادم')),
         );
       }
     } catch (e) {
+      setState(() {
+        getdata=false;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('خطأ في الاتصال بالخادم')),
       );
     } finally {
-      setState(() {});
+      setState(() {
+        getdata=false;
+      });
     }
   }
 
@@ -95,7 +109,6 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
 
   Future<void> fetchExperiences({bool reset = false}) async {
     if (isLoading) return;
-
     setState(() {
       isLoading = true;
       if (reset) {
@@ -118,28 +131,32 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
       });
     } catch (e) {
       // handle error
+      setState(() {
+        getdata=false;
+      });
     } finally {
-      setState(() => isLoading = false);
+      setState(() {
+        getdata=false;
+        isLoading = false;
+      });
     }
   }
 
-  bool isAddtocardLoading = false;
 
   void initState() {
     super.initState();
     intiatefirebase();
   }
-
   intiatefirebase() async {
+    getstat();
     await notificationService.initialize();
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('logined') ?? false;
     String _firebaset = prefs.getString('firebaseToken') ?? '';
     if (isLoggedIn) fcmToken = prefs.getString('fcmToken')! ?? '';
     if (_firebaset != fcmToken) updatefirbasetoken(fcmToken);
-    getstat();
-  }
 
+  }
   Future<void> updatefirbasetoken(String fcmToken) async {
     final prefs = await SharedPreferences.getInstance();
     String _token = prefs.getString('token') ?? '';
@@ -325,7 +342,15 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                 // Stats Grid - Now it's properly sized
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
-                  child: GridView.count(
+                  child:
+                  getdata
+                      ?  Center(
+                    child:  FullScreenLoading(
+                    message: 'جاري تحميل البيانات...',
+                    withScaffold: false,
+                  ),
+                  ) :
+                  GridView.count(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: isTablet ? 4 : 2,
@@ -408,14 +433,12 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                         ],
                       ),
                       SizedBox(height: verticalSpacingSmall),
-
                       // Products List
-                      isAddtocardLoading
-                          ? Center(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: verticalSpacingMedium),
-                          child: CircularProgressIndicator(),
+                      getdata
+                          ?  Center(
+                        child:  FullScreenLoading(
+                          message: 'جاري تحميل البيانات...',
+                          withScaffold: false,
                         ),
                       )
                           : Column(
