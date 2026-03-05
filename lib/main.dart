@@ -207,19 +207,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<OnboardingData> _pages = [
     OnboardingData(
-
       description: 'حيث تُحَوَّل المعرفة إلى صدقة جارية',
     ),
     OnboardingData(
-
-      description: 'منصة رقمية تربط الخبراء بالمستفيدين بمنظومة وقفية متكاملة',
+      description: 'منصة وقفية تربط الخبراء الواقفين لخبراتهم بالمستفيدين',
     ),
     OnboardingData(
-
       description: 'أوقف كتبك ودوراتك واستشاراتك... واجعل عطاءك أثراً لا ينقطع',
     ),
   ];
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -290,42 +286,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   },
                 ),
               ),
-              const Text(
-                "Developed and managed by",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-
-              /// ===== Second Logo With Text Beside It =====
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-
-                  Image.asset(
-                    "assets/images/alkafaa.png",
-                    height: 40,
-                    fit: BoxFit.contain,
-                  ),
-
-                  const SizedBox(width: 12),
-                  const Flexible(
-                    child: Text(
-                      "alkafaa lilistisharat Company educational\n waltarbawiya sharikat shakhs wahid",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                        height: 1.4,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
               /// ---------- DOTS ----------
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

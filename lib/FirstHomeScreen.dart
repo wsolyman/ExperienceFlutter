@@ -272,7 +272,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                           ),
                           child: Text(
                             textAlign: TextAlign.center,
-                            'وقف معرفي مستدام',
+                            'وقف مستدام',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: screenWidth * 0.035,
@@ -284,7 +284,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                       SizedBox(height: verticalSpacingSmall),
                       // Title
                       Text(
-                        'حوّل خبرتك إلى منتجات وقفية',
+                        'لتكن خبرتك أجرًا لك !',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: screenWidth * 0.065, // Slightly reduced
@@ -298,7 +298,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
                         child: Text(
-                          'أوقف منتجاتك المعرفية واجعل عوائدها صدقة جارية تنفع المجتمع',
+                          'اجعل من خبرتك في عملك وقفًا مستدامًا واستثمارًا يكون أجرًا جاريًا ومستمرًا !',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: screenWidth * 0.035,
@@ -321,9 +321,9 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                             borderRadius: BorderRadius.circular(30),
                           ),
                         ),
-                        icon: const Icon(Icons.arrow_back_ios_new, size: 16),
+                       icon: const Icon(Icons.arrow_back_ios_new, size: 16),
                         label: Text(
-                          'ابدأ الآن',
+                          'أوقف خبرتك',
                           style: TextStyle(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.bold,
@@ -804,7 +804,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                   ),
                   child: Text(
                     textAlign: TextAlign.center,
-                    'لديك منتج معرفي؟',
+                    'لديك منتج وقفي',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: screenWidth * 0.045,
@@ -818,7 +818,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                   child: Text(
-                    'أوقف منتجاتك المعرفية واجعلها مصدر دخل مستدام ينفع المجتمع',
+                    'هل ترغب في وقف خبرتك ؟',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: screenWidth * 0.045,
@@ -844,7 +844,7 @@ class _FirstHomeScreen extends State<FirstHomeScreen> {
                   ),
                   icon: Icon(Icons.add, size: screenWidth * 0.05),
                   label: Text(
-                    'أضف منتجك الآن',
+                    'ابداء',
                     style: TextStyle(
                       fontSize: screenWidth * 0.04,
                       fontWeight: FontWeight.bold,

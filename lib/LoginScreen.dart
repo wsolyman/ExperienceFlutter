@@ -468,43 +468,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      const Text(
-                        "Developed and managed by",
-                        style: TextStyle(
-                          color: AppColors.primaryBlue,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-
-                      /// ===== Second Logo With Text Beside It =====
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-
-                          Image.asset(
-                            "assets/images/alkafaadark.png",
-                            height: 40,
-                            fit: BoxFit.contain,
-                          ),
-
-                          const SizedBox(width: 12),
-
-                          const Flexible(
-                            child: Text(
-                              "alkafaa lilistisharat Company educational \nwaltarbawiya sharikat shakhs wahid",
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                color: AppColors.primaryBlue,
-                                fontSize: 10,
-                                height: 1.4,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-
 
                     ],
                   ),

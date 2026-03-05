@@ -6,7 +6,9 @@ import 'package:experience/constant.dart';
 import 'package:experience/service/SmartArabicText.dart';
 import 'package:experience/user/AboutUS_screen.dart';
 import 'package:experience/user/CertificatesScreen.dart';
+import 'package:experience/user/ExpendituresPage.dart';
 import 'package:experience/user/ExpertProgressPage.dart';
+import 'package:experience/user/FaqPage.dart';
 import 'package:experience/user/NotificationScreen.dart';
 import 'package:experience/user/SessionsScreen.dart';
 import 'package:experience/user/help_screen.dart';
@@ -350,7 +352,13 @@ class _ProfileScreenState extends State<ProfileScreen> with SingleTickerProvider
                 _buildMenuItem(Icons.shopping_bag, 'عن التطبيق',  () {
                   _navigateTo(context, AboutPage());
                 }),
-
+          _buildMenuItem(Icons.volunteer_activism, 'مصارف الوقف',  () {
+            _navigateTo(context, ExpendituresPage());
+          }),
+                  _buildMenuItem(Icons.question_mark_rounded, 'الاسئلة الشائعة', () {
+                    _navigateTo(context, const FaqPage());
+                  }),
+            // Create this page
               const SizedBox(height: 8),
               _buildMenuItem(Icons.logout, 'تسجيل الخروج', () {
                 // Clear SharedPreferences and redirect to login or home
