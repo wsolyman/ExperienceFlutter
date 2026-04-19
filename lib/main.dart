@@ -1,3 +1,4 @@
+import 'package:experience/TestPayment.dart';
 import 'package:experience/service/NotificationService.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -346,6 +347,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     context,
                     MaterialPageRoute(builder: (_) => LoginScreen()),
                   );
+
                 },
                 child: const Text(
                   'تخطي والبدء',

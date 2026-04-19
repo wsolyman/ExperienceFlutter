@@ -78,7 +78,12 @@ class _SplashScreenState extends State<SplashScreen> {
         // Handle login failure
         final prefs = await SharedPreferences.getInstance();
         await prefs.clear();
-        Navigator.pushAndRemoveUntil(
+       /* Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (route) => false,
+        );*/
+         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => LoginScreen()),
               (route) => false,

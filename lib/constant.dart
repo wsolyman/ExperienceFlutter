@@ -122,7 +122,6 @@ class BadgedIconButton extends StatelessWidget {
   final int? badgeCount;
   final VoidCallback onPressed;
   final String tooltip;
-
   const BadgedIconButton({
     Key? key,
     required this.icon,

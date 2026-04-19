@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:experience/OrdersPage.dart';
+import 'package:experience/TestPayment.dart';
 import 'package:experience/service/SmartArabicStyle.dart';
 import 'package:experience/service/SmartArabicText.dart';
 import 'package:experience/utils/loading_widget.dart';
@@ -55,7 +55,7 @@ class _CartScreenState extends State<CartScreen> {
                 setState(() {
                   cartFuture!.cartItems.clear();
                 });
-                putorder(cartFuture!.cartId?? 0);
+
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
@@ -225,10 +225,12 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  Future<void> putorder(int cartid) async {
+
+  Future<void> putorder(int cartid,double amount) async {
+
     final prefs = await SharedPreferences.getInstance();
     String _token = prefs.getString('token')??'';
-    var url1= serverUrl + 'orders/' + cartid.toString();
+    var url1= serverUrl +'orders/' + cartid.toString();
     final url = Uri.parse(url1);
     try {
       // 🔹 إرسال طلب DELETE للـ API
@@ -237,6 +239,7 @@ class _CartScreenState extends State<CartScreen> {
           headers: {'Content-Type': 'application/json','Authorization': 'Bearer $_token'}
       );
       if (response.statusCode == 200) {
+        var decodedData = json.decode(response.body);
         //getCart();
         // 🔹 إظهار رسالة نجاح
         ScaffoldMessenger.of(context).showSnackBar(
@@ -250,9 +253,10 @@ class _CartScreenState extends State<CartScreen> {
           cartFuture?.totalPrice!=0;
           cartFuture=null;
         });
+        int orderid=decodedData['orderId'];
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => OrdersPage()),
+          MaterialPageRoute(builder: (context) => TestPayment(orderId: orderid,amount: amount)),
               (route) => false,
         );
       } else {
@@ -895,7 +899,13 @@ class _CartScreenState extends State<CartScreen> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        _showCheckoutDialog(context);
+                       /* Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                PaymentScreen(amount: cartFuture!.totalPrice??0, currency: 'SAR', orderId: cartFuture!.cartId.toString(), productName: 'test'),
+                          ),
+                        );*/
+                        putorder(cartFuture!.cartId?? 0,cartFuture!.totalPrice??0);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.primaryBlue,

@@ -70,15 +70,15 @@ class _OrdersPageState extends State<OrdersPage> {
   }
 
   String _getPaymentStatusText(int status) {
-    return status == 1 ? "تم الدفع" : "لم يتم الدفع";
+    return status == 2 ? "تم الدفع" : "لم يتم الدفع";
   }
 
   Color _getPaymentStatusColor(int status) {
-    return status == 1 ? Colors.green : Colors.orange;
+    return status == 2 ? Colors.green : Colors.orange;
   }
 
   IconData _getPaymentStatusIcon(int status) {
-    return status == 1 ? Icons.check_circle : Icons.pending;
+    return status == 2 ? Icons.check_circle : Icons.pending;
   }
 
   @override
